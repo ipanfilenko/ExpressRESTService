@@ -1,20 +1,20 @@
-let users = [];
+let boards = [];
 
-const getAll = async () => users;
+const getAll = async () => boards;
 
-const create = async (user) => {
-  users.push(user);
-  return user;
+const create = async (board) => {
+  boards.push(board);
+  return board;
 };
 
-const getById = async (userId) => users.find(user => user.id === userId) || {};
+const getById = async (boardId) => boards.find(board => board.id === boardId) || {};
 
-const deleteUserById = async (userId) => {
-  users = users.filter(user => user.id === userId);
+const deleteBoardById = async (boardId) => {
+  boards = boards.filter(board => board.id === boardId);
 };
 
-const updateUser = async (user) => {
-  users = users.map(userFromStore => userFromStore.id === user.id ? user : userFromStore);
+const updateBoard = async (board) => {
+  boards = boards.map(boardFromStore => boardFromStore.id === board.id ? board : boardFromStore);
 };
 
-module.exports = { getAll, create, getById, deleteUserById, updateUser };
+module.exports = { getAll, create, getById, deleteBoardById, updateBoard };
