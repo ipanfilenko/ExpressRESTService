@@ -1,47 +1,53 @@
-const router = require('express').Router();
-const User = require('./task.model');
-const usersService = require('./task.service');
+const router = require('express').Router({ mergeParams: true });
+const Task = require('./task.model');
+const tasksService = require('./task.service');
 
 router.route('/').get(async (req, res) => {
-  const users = await usersService.getAll();
-  res.json(users.map(User.toResponse));
+  const tasks = await tasksService.getAll(req.params.boardId);
+  res.json(tasks);
 });
 
 router.route('/').post(async (req, res) => {
-  const user = new User({
-    name: req.body.name,
-    login: req.body.login,
-    password: req.body.password
+  const task = new Task({
+    title: req.body.title,
+    order: req.body.order,
+    description: req.body.description,
+    userId: req.body.userId,
+    boardId: req.params.boardId,
+    columnId: req.body.columnId,
   });
 
-  await usersService.create(user);
+  await tasksService.create(task);
 
   res.status(201);
-  res.json(User.toResponse(user));
+  res.json(task);
 });
 
-router.route('/:userId').get(async (req, res) => {
-  const user = await usersService.getById(req.params.userId);
-  res.json(User.toResponse(user));
+router.route('/:taskId').get(async (req, res) => {
+  const task = await tasksService.getById(req.params.boardId, req.params.taskId);
+  res.json(task);
 });
 
-router.route('/:userId').delete(async (req, res) => {
-  await usersService.deleteUserById(req.params.userId);
+router.route('/:taskId').delete(async (req, res) => {
+  await tasksService.deleteTaskById(req.params.boardId, req.params.taskId);
   res.status(204);
   res.json({});
 });
 
-router.route('/:userId').put(async (req, res) => {
-  const user = new User({
-    id: req.params.userId,
-    name: req.body.name,
-    login: req.body.login,
-    password: req.body.password
+router.route('/:taskId').put(async (req, res) => {
+  const task = new Task({
+    id: req.params.taskId,
+    title: req.body.title,
+    order: req.body.order,
+    description: req.body.description,
+    userId: req.body.userId,
+    boardId: req.params.boardId,
+    columnId: req.body.columnId,
   });
 
-  await usersService.updateUser(user);
+  await tasksService.updateTask(task);
 
-  res.json(User.toResponse(user));
+  res.json(task);
 });
 
 module.exports = router;

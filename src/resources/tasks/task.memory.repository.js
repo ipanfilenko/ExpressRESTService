@@ -1,20 +1,28 @@
 let tasks = [];
 
-const getAll = async () => tasks;
+const getAll = async (boardId) => tasks.filter(task => task.boardId === boardId);
 
 const create = async (user) => {
   tasks.push(user);
   return user;
 };
 
-const getById = async (userId) => tasks.find(user => user.id === userId) || {};
+const getById = async (boardId, taskId) => tasks.find(task => task.id === taskId && task.boardId === boardId) || {};
 
-const deleteUserById = async (userId) => {
-  tasks = tasks.filter(user => user.id === userId);
+const deleteTaskById = async (boardId, taskId) => {
+  tasks = tasks.filter(task => !(task.id === taskId && task.boardId === boardId));
 };
 
-const updateUser = async (user) => {
-  tasks = tasks.map(userFromStore => userFromStore.id === user.id ? user : userFromStore);
+const updateTask = async (task) => {
+  tasks = tasks.map(taskFromStore => taskFromStore.id === task.id ? task : taskFromStore);
 };
 
-module.exports = { getAll, create, getById, deleteUserById, updateUser };
+const deleteTasksForUser = async (userId) => {
+  tasks = tasks.map(task => (task.userId === userId ? { ...task, userId: null, } : task));
+};
+
+const deleteTasksForBoard = async (boardId) => {
+  tasks = tasks.map(task => (task.boardId === boardId ? { ...task, boardId: null, } : task));
+};
+
+module.exports = { getAll, create, getById, deleteTaskById, updateTask, deleteTasksForUser, deleteTasksForBoard };

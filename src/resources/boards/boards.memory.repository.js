@@ -10,7 +10,7 @@ const create = async (board) => {
 const getById = async (boardId) => boards.find(board => board.id === boardId) || {};
 
 const deleteBoardById = async (boardId) => {
-  boards = boards.filter(board => board.id === boardId);
+  boards = boards.filter(board => board.id !== boardId);
 };
 
 const updateBoard = async (board) => {

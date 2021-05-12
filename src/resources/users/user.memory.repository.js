@@ -10,7 +10,7 @@ const create = async (user) => {
 const getById = async (userId) => users.find(user => user.id === userId) || {};
 
 const deleteUserById = async (userId) => {
-  users = users.filter(user => user.id === userId);
+  users = users.filter(user => user.id !== userId);
 };
 
 const updateUser = async (user) => {
