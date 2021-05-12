@@ -7,7 +7,7 @@ const create = async (user) => {
   return user;
 };
 
-const getById = async (boardId, taskId) => tasks.find(task => task.id === taskId && task.boardId === boardId) || {};
+const getById = async (boardId, taskId) => tasks.find(task => task.id === taskId && task.boardId === boardId);
 
 const deleteTaskById = async (boardId, taskId) => {
   tasks = tasks.filter(task => !(task.id === taskId && task.boardId === boardId));
@@ -22,7 +22,7 @@ const deleteTasksForUser = async (userId) => {
 };
 
 const deleteTasksForBoard = async (boardId) => {
-  tasks = tasks.map(task => (task.boardId === boardId ? { ...task, boardId: null, } : task));
+  tasks = tasks.filter(task => task.boardId !== boardId);
 };
 
 module.exports = { getAll, create, getById, deleteTaskById, updateTask, deleteTasksForUser, deleteTasksForBoard };

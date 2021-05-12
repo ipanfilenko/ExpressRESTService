@@ -20,10 +20,15 @@ router.route('/').post(async (req, res) => {
   res.json(board);
 });
 
-
 router.route('/:boardId').get(async (req, res) => {
   const board = await boardService.getById(req.params.boardId);
-  res.json(board);
+
+  if (board) {
+    res.json(board);
+  } else {
+    res.status(404);
+    res.json({});
+  }
 });
 
 router.route('/:boardId').delete(async (req, res) => {

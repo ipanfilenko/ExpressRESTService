@@ -25,7 +25,13 @@ router.route('/').post(async (req, res) => {
 
 router.route('/:taskId').get(async (req, res) => {
   const task = await tasksService.getById(req.params.boardId, req.params.taskId);
-  res.json(task);
+
+  if (task) {
+    res.json(task);
+  } else {
+    res.status(404);
+    res.json({});
+  }
 });
 
 router.route('/:taskId').delete(async (req, res) => {

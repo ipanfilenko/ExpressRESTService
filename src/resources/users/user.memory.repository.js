@@ -7,7 +7,7 @@ const create = async (user) => {
   return user;
 };
 
-const getById = async (userId) => users.find(user => user.id === userId) || {};
+const getById = async (userId) => users.find(user => user.id === userId);
 
 const deleteUserById = async (userId) => {
   users = users.filter(user => user.id !== userId);
