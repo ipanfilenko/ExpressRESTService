@@ -13,6 +13,12 @@ class User {
     this.password = password;
   }
 
+  /**
+   * Convert object with user data for response
+   *
+   * @param {User} user Object with user data
+   * @returns {{name: *, id: *, login: *}} Object with user data for response
+   */
   static toResponse(user) {
     const { id, name, login } = user;
     return { id, name, login };

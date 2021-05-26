@@ -13,6 +13,9 @@
       "impliedStrict": true
     }
   },
+  "plugins": [
+    "jsdoc"
+  ],
   "settings": {
     "noInlineConfig": true
   },
@@ -20,7 +23,8 @@
     "eslint:recommended",
     "plugin:node/recommended",
     "airbnb-base",
-    "prettier"
+    "prettier",
+    "plugin:jsdoc/recommended"
   ],
   "rules": {
     "import/extensions": "off",

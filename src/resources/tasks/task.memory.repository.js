@@ -1,38 +1,53 @@
 /**
+ *  Object with property of task
  *
- * @type {Array}
+ * @typedef {object} Task
+ * @property {string} id Key/Id for task
+ * @property {string} title Title of task
+ * @property {string} order Order of task
+ * @property {string} description Description for task
+ * @property {string} userId Owner for task
+ */
+
+/**
+ *
+ * @type {Task[]}
  */
 let tasks = [];
 
 /**
+ * Get all tasks for selected board
  *
- * @param boardId
- * @returns {Promise<*[]>}
+ * @param {string} boardId ID of selected board
+ * @returns {Promise<Task[]>} Return array of tasks
  */
 const getAll = async (boardId) => tasks.filter(task => task.boardId === boardId);
 
 /**
+ * Add/create new task
  *
- * @param user
- * @returns {Promise<*>}
+ * @param {Task} task New task
+ * @returns {Task} Return task that was created
  */
-const create = async (user) => {
-  tasks.push(user);
-  return user;
+const create = async (task) => {
+  tasks.push(task);
+  return task;
 };
 
 /**
+ * Get task by ID
  *
- * @param boardId
- * @param taskId
- * @returns {Promise<*>}
+ * @param {string} boardId ID for selected board
+ * @param {string} taskId ID for selected task
+ * @returns {Promise<Task>} Selected task
  */
 const getById = async (boardId, taskId) => tasks.find(task => task.id === taskId && task.boardId === boardId);
 
 /**
+ * Delete task by ID
  *
- * @param boardId
- * @param taskId
+ * @param {string} boardId ID for selected board
+ * @param {string} taskId ID for selected task
  * @returns {Promise<void>}
  */
 const deleteTaskById = async (boardId, taskId) => {
@@ -40,8 +55,9 @@ const deleteTaskById = async (boardId, taskId) => {
 };
 
 /**
+ * Update task with new values
  *
- * @param task
+ * @param {Task} task Object with new values for task
  * @returns {Promise<void>}
  */
 const updateTask = async (task) => {
@@ -49,8 +65,9 @@ const updateTask = async (task) => {
 };
 
 /**
+ * Delete task for selected user
  *
- * @param userId
+ * @param {string } userId ID for selected user
  * @returns {Promise<void>}
  */
 const deleteTasksForUser = async (userId) => {
@@ -58,8 +75,9 @@ const deleteTasksForUser = async (userId) => {
 };
 
 /**
+ * Delete tasks for selected board
  *
- * @param boardId
+ * @param {string} boardId ID for selected board
  * @returns {Promise<void>}
  */
 const deleteTasksForBoard = async (boardId) => {
