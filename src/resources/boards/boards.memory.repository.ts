@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  *  Object with property of board ({ id: string; title: string; columns: array of column})
  *
@@ -63,4 +64,6 @@ const updateBoard = async (board) => {
  *
  * @type {{getAll: *, getById: *, deleteBoardById: *, create: *, updateBoard: *}}
  */
-module.exports = { getAll, create, getById, deleteBoardById, updateBoard };
+const boardRepo = { getAll, create, getById, deleteBoardById, updateBoard };
+
+export default boardRepo;

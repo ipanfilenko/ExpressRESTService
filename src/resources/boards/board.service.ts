@@ -1,4 +1,4 @@
-const boardsRepo = require('./boards.memory.repository');
+import boardsRepo from './boards.memory.repository';
 
 /**
  *  Object with property of board ({ id: string; title: string; columns: array of column})
@@ -53,4 +53,6 @@ const updateBoard = (board) => boardsRepo.updateBoard(board);
  * @type {{getAll: *, getById: *, deleteBoardById: *, create: *, updateBoard: *}}
  */
 
-module.exports = { getAll, create, getById, deleteBoardById, updateBoard };
+const boardService = { getAll, create, getById, deleteBoardById, updateBoard };
+
+export default boardService;

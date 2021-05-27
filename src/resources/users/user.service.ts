@@ -1,3 +1,5 @@
+import usersRepo from './user.memory.repository';
+
 /**
  *  Object with property of user
  *
@@ -9,17 +11,11 @@
  */
 
 /**
- *
- * @type {User[]}
- */
-let users = [];
-
-/**
  * Get all users
  *
  * @returns {User[]} Array with users
  */
-const getAll = async () => users;
+const getAll = () => usersRepo.getAll();
 
 /**
  * Add/create new user
@@ -27,10 +23,7 @@ const getAll = async () => users;
  * @param {User} user Object with user's values
  * @returns {User} User that was created
  */
-const create = async (user) => {
-  users.push(user);
-  return user;
-};
+const create = (user) => usersRepo.create(user);
 
 /**
  * Get User by ID
@@ -38,7 +31,7 @@ const create = async (user) => {
  * @param {string} userId ID for user
  * @returns {Promise<User>} Selected user
  */
-const getById = async (userId) => users.find(user => user.id === userId);
+const getById = (userId) => usersRepo.getById(userId);
 
 /**
  * Delete User by ID
@@ -46,21 +39,20 @@ const getById = async (userId) => users.find(user => user.id === userId);
  * @param {string} userId ID for user
  * @returns {Promise<void>}
  */
-const deleteUserById = async (userId) => {
-  users = users.filter(user => user.id !== userId);
-};
+const deleteUserById = (userId) => usersRepo.deleteUserById(userId);
 
 /**
+ * Update User with new values
  *
  * @param {User} user Object with new values for User
  * @returns {Promise<void>}
  */
-const updateUser = async (user) => {
-  users = users.map(userFromStore => userFromStore.id === user.id ? user : userFromStore);
-};
+const updateUser = (user) => usersRepo.updateUser(user);
 
 /**
  *
  * @type {{getAll: *, getById: *, create: *, updateUser: *, deleteUserById: *}}
  */
-module.exports = { getAll, create, getById, deleteUserById, updateUser };
+const UserService = { getAll, create, getById, deleteUserById, updateUser };
+
+export default UserService;

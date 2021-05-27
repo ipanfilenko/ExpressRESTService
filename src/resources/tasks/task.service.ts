@@ -1,4 +1,4 @@
-const tasksRepo = require('./task.memory.repository');
+import tasksRepo from './task.memory.repository';
 
 /**
  *  Object with property of task
@@ -73,4 +73,7 @@ const deleteTasksForBoard = (boardId) => tasksRepo.deleteTasksForBoard(boardId);
  *
  * @type {{updateTask: *, getAll: *, getById: *, deleteTaskById: *, create: *, deleteTasksForUser: *, deleteTasksForBoard: *}}
  */
-module.exports = { getAll, create, getById, deleteTaskById, updateTask, deleteTasksForUser, deleteTasksForBoard };
+
+const taskService = { getAll, create, getById, deleteTaskById, updateTask, deleteTasksForUser, deleteTasksForBoard };
+
+export default taskService;

@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  *  Object with property of task
  *
@@ -88,4 +89,6 @@ const deleteTasksForBoard = async (boardId) => {
  *
  * @type {{updateTask: *, getAll: *, getById: *, deleteTaskById: *, create: *, deleteTasksForUser: *, deleteTasksForBoard: *}}
  */
-module.exports = { getAll, create, getById, deleteTaskById, updateTask, deleteTasksForUser, deleteTasksForBoard };
+const tasksRepo = { getAll, create, getById, deleteTaskById, updateTask, deleteTasksForUser, deleteTasksForBoard };
+
+export default tasksRepo;
