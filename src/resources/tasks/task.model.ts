@@ -1,14 +1,25 @@
-// @ts-nocheck
-const { v4: uuid } = require('uuid');
+import { v4 as uuid } from 'uuid';
+import { TaskModel } from './task.interface';
 
-class Task {
+interface Task {
+  config: TaskModel;
+  id: string;
+  title: string;
+  order: number;
+  description: string;
+  userId: string | null,
+  boardId?: string,
+  columnId: string | null,
+}
+
+class Task implements Task {
   constructor({
     id = uuid(),
     title = 'title',
     order = 0,
     description = 'description',
     userId = null,
-    boardId = null,
+    boardId = '',
     columnId = null,
   } = {}) {
     this.id = id;
@@ -21,4 +32,4 @@ class Task {
   }
 }
 
-module.exports = Task;
+export default Task;

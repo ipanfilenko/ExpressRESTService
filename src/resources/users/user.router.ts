@@ -1,17 +1,17 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import User from './user.model';
 import UserService from './user.service';
 import taskService from '../tasks/task.service';
+import { UserModel } from './user.interface';
 
 const router = express.Router();
 
-router.route('/').get(async (req, res) => {
-  console.log(req);
+router.route('/').get(async (_req: Request, res: Response) => {
   const users = await UserService.getAll();
   res.json(users.map(User.toResponse));
 });
 
-router.route('/').post(async (req, res) => {
+router.route('/').post(async (req: Request, res: Response) => {
   const user = new User({
     name: req.body.name,
     login: req.body.login,
@@ -24,21 +24,24 @@ router.route('/').post(async (req, res) => {
   res.json(User.toResponse(user));
 });
 
-router.route('/:userId').get(async (req, res) => {
-  const user = await UserService.getById(req.params.userId);
-  res.json(User.toResponse(user));
+router.route('/:userId').get(async (req: Request, res: Response) => {
+  const { userId } = req.params;
+  const user = await UserService.getById(userId);
+  res.json(User.toResponse(user as UserModel));
 });
 
-router.route('/:userId').delete(async (req, res) => {
-  await UserService.deleteUserById(req.params.userId);
-  await taskService.deleteTasksForUser(req.params.userId);
+router.route('/:userId').delete(async (req: Request, res: Response) => {
+  const { userId } = req.params;
+  await UserService.deleteUserById(userId);
+  await taskService.deleteTasksForUser(userId);
   res.status(204);
   res.json({});
 });
 
-router.route('/:userId').put(async (req, res) => {
+router.route('/:userId').put(async (req: Request, res: Response) => {
+  const { userId } = req.params;
   const user = new User({
-    id: req.params.userId,
+    id: userId,
     name: req.body.name,
     login: req.body.login,
     password: req.body.password

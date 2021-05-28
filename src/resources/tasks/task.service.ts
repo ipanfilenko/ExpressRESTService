@@ -1,4 +1,5 @@
 import tasksRepo from './task.memory.repository';
+import { TaskModel } from './task.interface';
 
 /**
  *  Object with property of task
@@ -6,7 +7,7 @@ import tasksRepo from './task.memory.repository';
  * @typedef {object} Task
  * @property {string} id Key/Id for task
  * @property {string} title Title of task
- * @property {string} order Order of task
+ * @property {number} order Order of task
  * @property {string} description Description for task
  * @property {string} userId Owner for task
  */
@@ -17,7 +18,7 @@ import tasksRepo from './task.memory.repository';
  * @param {string} boardId ID of selected board
  * @returns {Promise<Task[]>} Return array of tasks
  */
-const getAll = (boardId) => tasksRepo.getAll(boardId);
+const getAll = (boardId?: string) => tasksRepo.getAll(boardId);
 
 /**
  * Add/create new task
@@ -25,7 +26,7 @@ const getAll = (boardId) => tasksRepo.getAll(boardId);
  * @param {Task} task New task
  * @returns {Task} Return task that was created
  */
-const create = (task) => tasksRepo.create(task);
+const create = (task: TaskModel) => tasksRepo.create(task);
 
 /**
  * Get task by ID
@@ -34,7 +35,7 @@ const create = (task) => tasksRepo.create(task);
  * @param {string} taskId ID for selected task
  * @returns {Promise<Task>} Selected task
  */
-const getById = (boardId, taskId) => tasksRepo.getById(boardId, taskId);
+const getById = (boardId?: string, taskId?: string) => tasksRepo.getById(boardId, taskId);
 
 /**
  * Delete task by ID
@@ -43,7 +44,7 @@ const getById = (boardId, taskId) => tasksRepo.getById(boardId, taskId);
  * @param {string} taskId ID for selected task
  * @returns {Promise<void>}
  */
-const deleteTaskById = (boardId, taskId) => tasksRepo.deleteTaskById(boardId, taskId);
+const deleteTaskById = (boardId?: string, taskId?: string) => tasksRepo.deleteTaskById(boardId, taskId);
 
 /**
  * Update task with new values
@@ -51,7 +52,7 @@ const deleteTaskById = (boardId, taskId) => tasksRepo.deleteTaskById(boardId, ta
  * @param {Task} task Object with new values for task
  * @returns {Promise<void>}
  */
-const updateTask = (task) => tasksRepo.updateTask(task);
+const updateTask = (task: TaskModel) => tasksRepo.updateTask(task);
 
 /**
  * Delete task for selected user
@@ -59,7 +60,7 @@ const updateTask = (task) => tasksRepo.updateTask(task);
  * @param {string } userId ID for selected user
  * @returns {Promise<void>}
  */
-const deleteTasksForUser = (userId) => tasksRepo.deleteTasksForUser(userId);
+const deleteTasksForUser = (userId?: string) => tasksRepo.deleteTasksForUser(userId);
 
 /**
  * Delete tasks for selected board
@@ -67,7 +68,7 @@ const deleteTasksForUser = (userId) => tasksRepo.deleteTasksForUser(userId);
  * @param {string} boardId ID for selected board
  * @returns {Promise<void>}
  */
-const deleteTasksForBoard = (boardId) => tasksRepo.deleteTasksForBoard(boardId);
+const deleteTasksForBoard = (boardId?: string) => tasksRepo.deleteTasksForBoard(boardId);
 
 /**
  *

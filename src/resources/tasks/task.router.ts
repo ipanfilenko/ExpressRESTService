@@ -1,21 +1,22 @@
-// @ts-nocheck
-import express from 'express';
+import express, { Request, Response } from 'express';
 import Task from './task.model';
 import tasksService from './task.service';
 
 const router = express.Router({ mergeParams: true });
-router.route('/').get(async (req, res) => {
-  const tasks = await tasksService.getAll(req.params.boardId);
+router.route('/').get(async (req: Request, res: Response) => {
+  const { boardId } = req.params;
+  const tasks = await tasksService.getAll(boardId);
   res.json(tasks);
 });
 
-router.route('/').post(async (req, res) => {
+router.route('/').post(async (req: Request, res: Response) => {
+  const { boardId } = req.params;
   const task = new Task({
     title: req.body.title,
     order: req.body.order,
     description: req.body.description,
     userId: req.body.userId,
-    boardId: req.params.boardId,
+    boardId,
     columnId: req.body.columnId,
   });
 
@@ -25,8 +26,9 @@ router.route('/').post(async (req, res) => {
   res.json(task);
 });
 
-router.route('/:taskId').get(async (req, res) => {
-  const task = await tasksService.getById(req.params.boardId, req.params.taskId);
+router.route('/:taskId').get(async (req: Request, res: Response) => {
+  const { boardId, taskId } = req.params;
+  const task = await tasksService.getById(boardId, taskId);
 
   if (task) {
     res.json(task);
@@ -36,20 +38,22 @@ router.route('/:taskId').get(async (req, res) => {
   }
 });
 
-router.route('/:taskId').delete(async (req, res) => {
-  await tasksService.deleteTaskById(req.params.boardId, req.params.taskId);
+router.route('/:taskId').delete(async (req: Request, res: Response) => {
+  const { boardId, taskId } = req.params;
+  await tasksService.deleteTaskById(boardId, taskId);
   res.status(204);
   res.json({});
 });
 
-router.route('/:taskId').put(async (req, res) => {
+router.route('/:taskId').put(async (req: Request, res: Response) => {
+  const { boardId, taskId } = req.params;
   const task = new Task({
-    id: req.params.taskId,
+    id: taskId,
     title: req.body.title,
     order: req.body.order,
     description: req.body.description,
     userId: req.body.userId,
-    boardId: req.params.boardId,
+    boardId,
     columnId: req.body.columnId,
   });
 
