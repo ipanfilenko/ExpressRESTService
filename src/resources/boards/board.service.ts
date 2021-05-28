@@ -15,7 +15,7 @@ import { BoardModel } from './board.interface';
  *
  * @returns {Promise<Board[]>} Return array of boards
  */
-const getAll = () => boardsRepo.getAll();
+const getAll = (): Promise<BoardModel[]> => boardsRepo.getAll();
 
 /**
  * Add/Create board in memoryDB
@@ -23,7 +23,7 @@ const getAll = () => boardsRepo.getAll();
  * @param {Board} board Trello board
  * @returns {Promise<Board>} Add/Create new Trello board
  */
-const create = (board: BoardModel) => boardsRepo.create(board);
+const create = (board: BoardModel): Promise<BoardModel> => boardsRepo.create(board);
 
 /**
  * Get Trello board by ID
@@ -31,7 +31,7 @@ const create = (board: BoardModel) => boardsRepo.create(board);
  * @param {string} boardId ID of board
  * @returns {Promise<Board>} Return Trello board
  */
-const getById = (boardId?: string) => boardsRepo.getById(boardId);
+const getById = (boardId?: string): Promise<BoardModel|undefined> => boardsRepo.getById(boardId);
 
 /**
  * Delete Trello board from list of boards
@@ -39,7 +39,7 @@ const getById = (boardId?: string) => boardsRepo.getById(boardId);
  * @param {string} boardId ID of board
  * @returns {Promise<void>}
  */
-const deleteBoardById = (boardId?: string) => boardsRepo.deleteBoardById(boardId);
+const deleteBoardById = (boardId?: string): Promise<void> => boardsRepo.deleteBoardById(boardId);
 
 /**
  * Update Trello board with new values
@@ -47,7 +47,7 @@ const deleteBoardById = (boardId?: string) => boardsRepo.deleteBoardById(boardId
  * @param {Board} board Trello board
  * @returns {Promise<void>}
  */
-const updateBoard = (board: BoardModel) => boardsRepo.updateBoard(board);
+const updateBoard = (board: BoardModel): Promise<void> => boardsRepo.updateBoard(board);
 
 /**
  *

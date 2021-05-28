@@ -21,7 +21,7 @@ let users = [] as UserModel[];
  *
  * @returns {User[]} Array with users
  */
-const getAll = async () => users;
+const getAll = async (): Promise<UserModel[]> => users;
 
 /**
  * Add/create new user
@@ -29,7 +29,7 @@ const getAll = async () => users;
  * @param {User} user Object with user's values
  * @returns {User} User that was created
  */
-const create = async (user: UserModel) => {
+const create = async (user: UserModel): Promise<UserModel> => {
   users.push(user);
   return user;
 };
@@ -40,7 +40,7 @@ const create = async (user: UserModel) => {
  * @param {string} userId ID for user
  * @returns {Promise<User>} Selected user
  */
-const getById = async (userId?: string) => users.find(user => user.id === userId);
+const getById = async (userId?: string): Promise<UserModel | undefined>  => users.find(user => user.id === userId);
 
 /**
  * Delete User by ID
@@ -48,7 +48,7 @@ const getById = async (userId?: string) => users.find(user => user.id === userId
  * @param {string} userId ID for user
  * @returns {Promise<void>}
  */
-const deleteUserById = async (userId?: string) => {
+const deleteUserById = async (userId?: string): Promise<void> => {
   users = users.filter(user => user.id !== userId);
 };
 
@@ -57,7 +57,7 @@ const deleteUserById = async (userId?: string) => {
  * @param {User} user Object with new values for User
  * @returns {Promise<void>}
  */
-const updateUser = async (user: UserModel) => {
+const updateUser = async (user: UserModel): Promise<void> => {
   users = users.map(userFromStore => userFromStore.id === user.id ? user : userFromStore);
 };
 

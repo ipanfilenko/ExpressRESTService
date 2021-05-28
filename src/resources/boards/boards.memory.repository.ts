@@ -20,7 +20,7 @@ let boards = [] as BoardModel[];
  *
  * @returns {Promise<Board[]>} Return list of board
  */
-const getAll = async () => boards;
+const getAll = async (): Promise<BoardModel[]> => boards;
 
 /**
  * Creat new board
@@ -28,7 +28,7 @@ const getAll = async () => boards;
  * @param {Board} board Trello board
  * @returns {Promise<Board>} Add/create new board
  */
-const create = async (board: BoardModel) => {
+const create = async (board: BoardModel): Promise<BoardModel> => {
   boards.push(board);
   return board;
 };
@@ -39,7 +39,7 @@ const create = async (board: BoardModel) => {
  * @param {string} boardId ID for Trello board
  * @returns {Promise<Promise<Board>|undefined>} Retrun board based on ID or undefined if board is not exist
  */
-const getById = async (boardId?: string) => boards.find(board => board.id === boardId);
+const getById = async (boardId?: string): Promise<BoardModel|undefined> => boards.find(board => board.id === boardId);
 
 /**
  * Delete board based on ID
@@ -47,7 +47,7 @@ const getById = async (boardId?: string) => boards.find(board => board.id === bo
  * @param {string} boardId ID for Trello board
  * @returns {Promise<void>}
  */
-const deleteBoardById = async (boardId?: string) => {
+const deleteBoardById = async (boardId?: string): Promise<void> => {
   boards = boards.filter(board => board.id !== boardId);
 };
 
@@ -57,7 +57,7 @@ const deleteBoardById = async (boardId?: string) => {
  * @param {Board} board Trello board
  * @returns {Promise<void>}
  */
-const updateBoard = async (board: BoardModel) => {
+const updateBoard = async (board: BoardModel): Promise<void> => {
   boards = boards.map(boardFromStore => boardFromStore.id === board.id ? board : boardFromStore);
 };
 

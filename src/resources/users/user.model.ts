@@ -28,7 +28,7 @@ class User implements User{
    * @param {User} user Object with user data
    * @returns {{name: *, id: *, login: *}} Object with user data for response
    */
-  static toResponse(user: UserModel) {
+  static toResponse(user: UserModel): Partial<UserModel> {
     const { id, name, login } = user;
     return { id, name, login };
   }
