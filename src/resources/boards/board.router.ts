@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import Board from './board.model';
+import { Board } from './board.model';
 import boardService from './board.service';
 import taskService from '../tasks/task.service';
 

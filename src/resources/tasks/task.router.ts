@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import Task from './task.model';
+import { Task } from './task.model';
 import tasksService from './task.service';
 
 const router = express.Router({ mergeParams: true });

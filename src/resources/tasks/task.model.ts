@@ -1,8 +1,6 @@
 import { v4 as uuid } from 'uuid';
-import { TaskModel } from './task.interface';
 
-interface Task {
-  config: TaskModel;
+export interface Task {
   id: string;
   title: string;
   order: number;
@@ -12,7 +10,7 @@ interface Task {
   columnId: string | null,
 }
 
-class Task implements Task {
+export class Task {
   constructor({
     id = uuid(),
     title = 'title',
@@ -31,5 +29,3 @@ class Task implements Task {
     this.columnId = columnId;
   }
 }
-
-export default Task;

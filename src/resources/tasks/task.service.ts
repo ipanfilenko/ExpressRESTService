@@ -1,5 +1,5 @@
 import tasksRepo from './task.memory.repository';
-import { TaskModel } from './task.interface';
+import { Task } from './task.model';
 
 /**
  *  Object with property of task
@@ -18,24 +18,24 @@ import { TaskModel } from './task.interface';
  * @param {string} boardId ID of selected board
  * @returns {Promise<Task[]>} Return array of tasks
  */
-const getAll = (boardId?: string): Promise<TaskModel[]> => tasksRepo.getAll(boardId);
+const getAll = (boardId?: string): Promise<Task[]> => tasksRepo.getAll(boardId);
 
 /**
  * Add/create new task
  *
  * @param {Task} task New task
- * @returns {Task} Return task that was created
+ * @returns {Promise<Task>} Return task that was created
  */
-const create = (task: TaskModel): Promise<TaskModel> => tasksRepo.create(task);
+const create = (task: Task): Promise<Task> => tasksRepo.create(task);
 
 /**
  * Get task by ID
  *
  * @param {string} boardId ID for selected board
  * @param {string} taskId ID for selected task
- * @returns {Promise<Task>} Selected task
+ * @returns {Promise<Task | undefined>} Selected task
  */
-const getById = (boardId?: string, taskId?: string): Promise<TaskModel | undefined> => tasksRepo.getById(boardId, taskId);
+const getById = (boardId?: string, taskId?: string): Promise<Task | undefined> => tasksRepo.getById(boardId, taskId);
 
 /**
  * Delete task by ID
@@ -52,7 +52,7 @@ const deleteTaskById = (boardId?: string, taskId?: string): Promise<void> => tas
  * @param {Task} task Object with new values for task
  * @returns {Promise<void>}
  */
-const updateTask = (task: TaskModel): Promise<void> => tasksRepo.updateTask(task);
+const updateTask = (task: Task): Promise<void> => tasksRepo.updateTask(task);
 
 /**
  * Delete task for selected user

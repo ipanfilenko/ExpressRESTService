@@ -1,8 +1,7 @@
 import express, { Request, Response } from 'express';
-import User from './user.model';
+import { User } from './user.model';
 import UserService from './user.service';
 import taskService from '../tasks/task.service';
-import { UserModel } from './user.interface';
 
 const router = express.Router();
 
@@ -27,7 +26,7 @@ router.route('/').post(async (req: Request, res: Response) => {
 router.route('/:userId').get(async (req: Request, res: Response) => {
   const { userId } = req.params;
   const user = await UserService.getById(userId);
-  res.json(User.toResponse(user as UserModel));
+  res.json(User.toResponse(user as User));
 });
 
 router.route('/:userId').delete(async (req: Request, res: Response) => {

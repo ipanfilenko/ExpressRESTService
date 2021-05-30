@@ -1,15 +1,13 @@
 import { v4 as uuid } from 'uuid';
-import { BoardModel } from './board.interface';
-import Task from '../tasks/task.model';
+import { Task } from '../tasks/task.model';
 
-interface Board {
-  config: BoardModel;
+export interface Board {
   id: string;
   title: string;
   columns: Task[];
 }
 
-class Board implements Board {
+export class Board {
   constructor({
     id = uuid(),
     title = 'Title',
@@ -20,5 +18,3 @@ class Board implements Board {
     this.columns = columns;
   }
 }
-
-export default Board;

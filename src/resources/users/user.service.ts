@@ -1,5 +1,5 @@
 import usersRepo from './user.memory.repository';
-import { UserModel } from './user.interface';
+import { User } from './user.model';
 
 /**
  *  Object with property of user
@@ -14,25 +14,25 @@ import { UserModel } from './user.interface';
 /**
  * Get all users
  *
- * @returns {User[]} Array with users
+ * @returns {Promise<User[]>} Array with users
  */
-const getAll = (): Promise<UserModel[]> => usersRepo.getAll();
+const getAll = (): Promise<User[]> => usersRepo.getAll();
 
 /**
  * Add/create new user
  *
  * @param {User} user Object with user's values
- * @returns {User} User that was created
+ * @returns {Promise<User>} User that was created
  */
-const create = (user: UserModel): Promise<UserModel> => usersRepo.create(user);
+const create = (user: User): Promise<User> => usersRepo.create(user);
 
 /**
  * Get User by ID
  *
  * @param {string} userId ID for user
- * @returns {Promise<User>} Selected user
+ * @returns {Promise<User | undefined>} Selected user
  */
-const getById = (userId?: string): Promise<UserModel | undefined> => usersRepo.getById(userId);
+const getById = (userId?: string): Promise<User | undefined> => usersRepo.getById(userId);
 
 /**
  * Delete User by ID
@@ -48,7 +48,7 @@ const deleteUserById = (userId?: string): Promise<void> => usersRepo.deleteUserB
  * @param {User} user Object with new values for User
  * @returns {Promise<void>}
  */
-const updateUser = (user: UserModel): Promise<void> => usersRepo.updateUser(user);
+const updateUser = (user: User): Promise<void> => usersRepo.updateUser(user);
 
 /**
  *
