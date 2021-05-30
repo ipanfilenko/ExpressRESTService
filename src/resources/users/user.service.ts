@@ -1,4 +1,5 @@
-const usersRepo = require('./user.memory.repository');
+import usersRepo from './user.memory.repository';
+import { User } from './user.model';
 
 /**
  *  Object with property of user
@@ -15,7 +16,7 @@ const usersRepo = require('./user.memory.repository');
  *
  * @returns {Promise<User[]>} Array with users
  */
-const getAll = () => usersRepo.getAll();
+const getAll = (): Promise<User[]> => usersRepo.getAll();
 
 /**
  * Add/create new user
@@ -23,7 +24,7 @@ const getAll = () => usersRepo.getAll();
  * @param {User} user Object with user's values
  * @returns {Promise<User>} User that was created
  */
-const create = (user) => usersRepo.create(user);
+const create = (user: User): Promise<User> => usersRepo.create(user);
 
 /**
  * Get User by ID
@@ -31,7 +32,7 @@ const create = (user) => usersRepo.create(user);
  * @param {string} userId ID for user
  * @returns {Promise<User | undefined>} Selected user
  */
-const getById = (userId) => usersRepo.getById(userId);
+const getById = (userId?: string): Promise<User | undefined> => usersRepo.getById(userId);
 
 /**
  * Delete User by ID
@@ -39,7 +40,7 @@ const getById = (userId) => usersRepo.getById(userId);
  * @param {string} userId ID for user
  * @returns {Promise<void>}
  */
-const deleteUserById = (userId) => usersRepo.deleteUserById(userId);
+const deleteUserById = (userId?: string): Promise<void> => usersRepo.deleteUserById(userId);
 
 /**
  * Update User with new values
@@ -47,10 +48,12 @@ const deleteUserById = (userId) => usersRepo.deleteUserById(userId);
  * @param {User} user Object with new values for User
  * @returns {Promise<void>}
  */
-const updateUser = (user) => usersRepo.updateUser(user);
+const updateUser = (user: User): Promise<void> => usersRepo.updateUser(user);
 
 /**
  *
  * @type {{getAll: *, getById: *, create: *, updateUser: *, deleteUserById: *}}
  */
-module.exports = { getAll, create, getById, deleteUserById, updateUser };
+const UserService = { getAll, create, getById, deleteUserById, updateUser };
+
+export default UserService;

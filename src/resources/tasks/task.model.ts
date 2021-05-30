@@ -1,13 +1,23 @@
-const { v4: uuid } = require('uuid');
+import { v4 as uuid } from 'uuid';
 
-class Task {
+export interface Task {
+  id: string;
+  title: string;
+  order: number;
+  description: string;
+  userId: string | null,
+  boardId?: string,
+  columnId: string | null,
+}
+
+export class Task {
   constructor({
     id = uuid(),
     title = 'title',
     order = 0,
     description = 'description',
     userId = null,
-    boardId = null,
+    boardId = '',
     columnId = null,
   } = {}) {
     this.id = id;
@@ -19,5 +29,3 @@ class Task {
     this.columnId = columnId;
   }
 }
-
-module.exports = Task;

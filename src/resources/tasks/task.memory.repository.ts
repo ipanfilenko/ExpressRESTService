@@ -1,3 +1,5 @@
+import { Task } from './task.model';
+
 /**
  *  Object with property of task
  *
@@ -14,7 +16,7 @@
  *
  * @type {Task[]}
  */
-let tasks = [];
+let tasks = [] as Task[];
 
 /**
  * Get all tasks for selected board
@@ -22,7 +24,7 @@ let tasks = [];
  * @param {string} boardId ID of selected board
  * @returns {Promise<Task[]>} Return array of tasks
  */
-const getAll = async (boardId) => tasks.filter(task => task.boardId === boardId);
+const getAll = async (boardId?: string): Promise<Task[]> => tasks.filter(task => task.boardId === boardId);
 
 /**
  * Add/create new task
@@ -30,7 +32,7 @@ const getAll = async (boardId) => tasks.filter(task => task.boardId === boardId)
  * @param {Task} task New task
  * @returns {Promise<Task>} Return task that was created
  */
-const create = async (task) => {
+const create = async (task: Task): Promise<Task> => {
   tasks.push(task);
   return task;
 };
@@ -42,7 +44,8 @@ const create = async (task) => {
  * @param {string} taskId ID for selected task
  * @returns {Promise<Task|undefined>} Selected task
  */
-const getById = async (boardId, taskId) => tasks.find(task => task.id === taskId && task.boardId === boardId);
+const getById = async (boardId?: string, taskId?: string): Promise<Task|undefined> => tasks
+    .find(task => task.id === taskId && task.boardId === boardId);
 
 /**
  * Delete task by ID
@@ -51,7 +54,7 @@ const getById = async (boardId, taskId) => tasks.find(task => task.id === taskId
  * @param {string} taskId ID for selected task
  * @returns {Promise<void>}
  */
-const deleteTaskById = async (boardId, taskId) => {
+const deleteTaskById = async (boardId?: string, taskId?: string): Promise<void> => {
   tasks = tasks.filter(task => !(task.id === taskId && task.boardId === boardId));
 };
 
@@ -61,7 +64,7 @@ const deleteTaskById = async (boardId, taskId) => {
  * @param {Task} task Object with new values for task
  * @returns {Promise<void>}
  */
-const updateTask = async (task) => {
+const updateTask = async (task: Task): Promise<void> => {
   tasks = tasks.map(taskFromStore => taskFromStore.id === task.id ? task : taskFromStore);
 };
 
@@ -71,7 +74,7 @@ const updateTask = async (task) => {
  * @param {string } userId ID for selected user
  * @returns {Promise<void>}
  */
-const deleteTasksForUser = async (userId) => {
+const deleteTasksForUser = async (userId?: string): Promise<void> => {
   tasks = tasks.map(task => (task.userId === userId ? { ...task, userId: null, } : task));
 };
 
@@ -81,7 +84,7 @@ const deleteTasksForUser = async (userId) => {
  * @param {string} boardId ID for selected board
  * @returns {Promise<void>}
  */
-const deleteTasksForBoard = async (boardId) => {
+const deleteTasksForBoard = async (boardId?: string): Promise<void> => {
   tasks = tasks.filter(task => task.boardId !== boardId);
 };
 
@@ -89,4 +92,6 @@ const deleteTasksForBoard = async (boardId) => {
  *
  * @type {{updateTask: *, getAll: *, getById: *, deleteTaskById: *, create: *, deleteTasksForUser: *, deleteTasksForBoard: *}}
  */
-module.exports = { getAll, create, getById, deleteTaskById, updateTask, deleteTasksForUser, deleteTasksForBoard };
+const tasksRepo = { getAll, create, getById, deleteTaskById, updateTask, deleteTasksForUser, deleteTasksForBoard };
+
+export default tasksRepo;

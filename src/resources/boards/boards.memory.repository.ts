@@ -1,3 +1,5 @@
+import { Board } from './board.model';
+
 /**
  *  Object with property of board ({ id: string; title: string; columns: array of column})
  *
@@ -11,14 +13,14 @@
  *
  * @type {Board[]}
  */
-let boards = [];
+let boards = [] as Board[];
 
 /**
  * Return all boards
  *
  * @returns {Promise<Board[]>} Return list of board
  */
-const getAll = async () => boards;
+const getAll = async (): Promise<Board[]> => boards;
 
 /**
  * Creat new board
@@ -26,7 +28,7 @@ const getAll = async () => boards;
  * @param {Board} board Trello board
  * @returns {Promise<Board>} Add/create new board
  */
-const create = async (board) => {
+const create = async (board: Board): Promise<Board> => {
   boards.push(board);
   return board;
 };
@@ -37,7 +39,7 @@ const create = async (board) => {
  * @param {string} boardId ID for Trello board
  * @returns {Promise<Promise<Board>|undefined>} Retrun board based on ID or undefined if board is not exist
  */
-const getById = async (boardId) => boards.find(board => board.id === boardId);
+const getById = async (boardId?: string): Promise<Board|undefined> => boards.find(board => board.id === boardId);
 
 /**
  * Delete board based on ID
@@ -45,7 +47,7 @@ const getById = async (boardId) => boards.find(board => board.id === boardId);
  * @param {string} boardId ID for Trello board
  * @returns {Promise<void>}
  */
-const deleteBoardById = async (boardId) => {
+const deleteBoardById = async (boardId?: string): Promise<void> => {
   boards = boards.filter(board => board.id !== boardId);
 };
 
@@ -55,7 +57,7 @@ const deleteBoardById = async (boardId) => {
  * @param {Board} board Trello board
  * @returns {Promise<void>}
  */
-const updateBoard = async (board) => {
+const updateBoard = async (board: Board): Promise<void> => {
   boards = boards.map(boardFromStore => boardFromStore.id === board.id ? board : boardFromStore);
 };
 
@@ -63,4 +65,6 @@ const updateBoard = async (board) => {
  *
  * @type {{getAll: *, getById: *, deleteBoardById: *, create: *, updateBoard: *}}
  */
-module.exports = { getAll, create, getById, deleteBoardById, updateBoard };
+const boardRepo = { getAll, create, getById, deleteBoardById, updateBoard };
+
+export default boardRepo;
