@@ -13,7 +13,7 @@ const usersRepo = require('./user.memory.repository');
 /**
  * Get all users
  *
- * @returns {User[]} Array with users
+ * @returns {Promise<User[]>} Array with users
  */
 const getAll = () => usersRepo.getAll();
 
@@ -21,7 +21,7 @@ const getAll = () => usersRepo.getAll();
  * Add/create new user
  *
  * @param {User} user Object with user's values
- * @returns {User} User that was created
+ * @returns {Promise<User>} User that was created
  */
 const create = (user) => usersRepo.create(user);
 
@@ -29,7 +29,7 @@ const create = (user) => usersRepo.create(user);
  * Get User by ID
  *
  * @param {string} userId ID for user
- * @returns {Promise<User>} Selected user
+ * @returns {Promise<User | undefined>} Selected user
  */
 const getById = (userId) => usersRepo.getById(userId);
 

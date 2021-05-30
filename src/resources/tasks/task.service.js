@@ -6,9 +6,10 @@ const tasksRepo = require('./task.memory.repository');
  * @typedef {object} Task
  * @property {string} id Key/Id for task
  * @property {string} title Title of task
- * @property {string} order Order of task
+ * @property {number} order Order of task
  * @property {string} description Description for task
- * @property {string} userId Owner for task
+ * @property {string | null} userId Owner for task
+ * @property {string | null} boardId Board for task
  */
 
 /**
@@ -23,7 +24,7 @@ const getAll = (boardId) => tasksRepo.getAll(boardId);
  * Add/create new task
  *
  * @param {Task} task New task
- * @returns {Task} Return task that was created
+ * @returns {Promise<Task>} Return task that was created
  */
 const create = (task) => tasksRepo.create(task);
 
@@ -32,7 +33,7 @@ const create = (task) => tasksRepo.create(task);
  *
  * @param {string} boardId ID for selected board
  * @param {string} taskId ID for selected task
- * @returns {Promise<Task>} Selected task
+ * @returns {Promise<Task | undefined>} Selected task
  */
 const getById = (boardId, taskId) => tasksRepo.getById(boardId, taskId);
 
