@@ -28,8 +28,6 @@ export const addErrorIntoLog = (loggerEvent: Partial<Request & Response>): void 
 
     const { url, method } = loggerEvent;
 
-    console.error('Internal Server Error');
-
     stream.once('open', ()  => {
         stream.write(`Date: ${dayjs(new Date()).format('MM/DD/YYYY h:mm:ss')}\n`);
         stream.write(`Url: ${url}\n`);
@@ -48,11 +46,11 @@ export const addExceptionIntoLog = (error: Error, type: string): void => {
 
     const { name, message } = error;
 
-    console.error(`${type}: ${message}`);
+    process.stdout.write(`${type}: ${message}`);
 
     stream.once('open', ()  => {
         stream.write(`Date: ${dayjs(new Date()).format('MM/DD/YYYY h:mm:ss')}\n`);
-        stream.write(`${type}: ${name}\n`);
+        stream.write(`${name}: ${type}\n`);
         stream.write(`Message: ${message}\n`);
         stream.write(`-------------------------------------------------\n`);
         stream.end();

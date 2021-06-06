@@ -8,7 +8,6 @@ const router = express.Router();
 
 router.route('/').get(handleErrorAsync(async (_req: Request, res: Response) => {
   const boards = await boardService.getAll();
-  throw new Error('Error get board!!!');
 
   if (boards) {
     res.json(boards);

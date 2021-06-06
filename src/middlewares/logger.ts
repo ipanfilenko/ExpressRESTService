@@ -1,24 +1,40 @@
 import { Request, Response, NextFunction } from 'express';
+import { finished } from 'stream';
 import { addEventIntoLog, addErrorIntoLog } from '../utils/addEventIntoLog';
 
-const Logger = (error: Error, req: Request, res: Response, next: NextFunction): void => {
-    const { url, method, params, query, body } = req;
-
-    if (error) {
-        addErrorIntoLog({ url, method });
-
-        res.status(500).send({
-            status: 500,
-            message: 'Internal Server Error',
-            type: 'internal'
-        })
-    }
-
-    const { statusCode } = res;
-
-    addEventIntoLog({ url, method, params, query, body, statusCode });
+export const Logger = ( req: Request, res: Response, next: NextFunction): void => {
+    finished(res, () => {
+        const { url, method, params, query, body } = req;
+        const { statusCode } = res;
+        addEventIntoLog({ url, method, params, query, body, statusCode });
+        process.stdout.write(JSON.stringify({ url, method, params, query, body, statusCode }));
+    });
 
     next();
 };
 
-export default Logger;
+interface Error {
+    status?: number;
+    message?: string;
+}
+
+export const ErrorLogger = (error: Error, req: Request, res: Response, next: NextFunction): void => {
+    const { url, method } = req;
+
+    if (error) {
+        addErrorIntoLog({ url, method });
+
+        const errorStatus = error.status || 500;
+        const errorForLog = {
+            status: errorStatus,
+            message: error.message || 'Internal Server Error',
+            type: 'internal'
+        };
+
+        res.status(errorStatus).send(errorForLog);
+
+        process.stdout.write(JSON.stringify(errorForLog))
+    }
+
+    next();
+};
