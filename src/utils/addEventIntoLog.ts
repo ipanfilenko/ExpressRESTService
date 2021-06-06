@@ -6,6 +6,7 @@ export const addEventIntoLog = (loggerEvent: Partial<Request & Response>): void 
     const stream = fs.createWriteStream('log.txt', {
         flags: 'a+'
     });
+
     const { url, method, params, query, body, statusCode } = loggerEvent;
 
     stream.once('open', ()  => {

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { finished } from 'stream';
-import { addEventIntoLog, addErrorIntoLog } from '../utils/addEventIntoLog';
+import {addEventIntoLog, addErrorIntoLog, addExceptionIntoLog} from '../utils/addEventIntoLog';
 
 export const Logger = ( req: Request, res: Response, next: NextFunction): void => {
     finished(res, () => {
@@ -13,12 +13,12 @@ export const Logger = ( req: Request, res: Response, next: NextFunction): void =
     next();
 };
 
-interface Error {
+interface CustomError extends Error {
     status?: number;
-    message?: string;
+    message: string;
 }
 
-export const ErrorLogger = (error: Error, req: Request, res: Response, next: NextFunction): void => {
+export const ErrorLogger = (error: CustomError, req: Request, res: Response, next: NextFunction): void => {
     const { url, method } = req;
 
     if (error) {
@@ -38,3 +38,11 @@ export const ErrorLogger = (error: Error, req: Request, res: Response, next: Nex
 
     next();
 };
+
+process
+    .on('uncaughtException', (error: Error) => {
+        addExceptionIntoLog(error, 'Uncaught exception');
+    })
+    .on('unhandledRejection', (error: Error) => {
+        addExceptionIntoLog(error, 'Unhandled rejection');
+    });

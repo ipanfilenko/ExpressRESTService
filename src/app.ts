@@ -6,7 +6,6 @@ import userRouter from './resources/users/user.router';
 import boardRouter from './resources/boards/board.router';
 import taskRouter from './resources/tasks/task.router';
 import { Logger, ErrorLogger } from './middlewares/logger';
-import { addExceptionIntoLog } from "./utils/addEventIntoLog";
 
 const app = express();
 const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
@@ -26,15 +25,6 @@ app.use('/', (req, res, next) => {
 app.use('/users', userRouter);
 app.use('/boards', boardRouter);
 app.use('/boards/:boardId/tasks', taskRouter);
-
-process
-    .on('uncaughtException', (error: Error) => {
-        addExceptionIntoLog(error, 'Uncaught exception');
-    })
-    .on('unhandledRejection', (error: Error) => {
-        addExceptionIntoLog(error, 'Unhandled rejection');
-    });
-
 app.use(ErrorLogger);
 
 export default app;
