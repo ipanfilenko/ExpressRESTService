@@ -22,11 +22,13 @@ export const addEventIntoLog = (loggerEvent: Partial<Request & Response>): void 
 };
 
 export const addErrorIntoLog = (loggerEvent: Partial<Request & Response>): void => {
-    const stream = fs.createWriteStream('log.txt', {
+    const stream = fs.createWriteStream('errors.txt', {
         flags: 'a+'
     });
 
     const { url, method } = loggerEvent;
+
+    console.error('Internal Server Error');
 
     stream.once('open', ()  => {
         stream.write(`Date: ${dayjs(new Date()).format('MM/DD/YYYY h:mm:ss')}\n`);
@@ -37,4 +39,22 @@ export const addErrorIntoLog = (loggerEvent: Partial<Request & Response>): void 
         stream.write(`-------------------------------------------------\n`);
         stream.end();
     })
+};
+
+export const addExceptionIntoLog = (error: Error, type: string): void => {
+    const stream = fs.createWriteStream('errors.txt', {
+        flags: 'a+'
+    });
+
+    const { name, message } = error;
+
+    console.error(`${type}: ${message}`);
+
+    stream.once('open', ()  => {
+        stream.write(`Date: ${dayjs(new Date()).format('MM/DD/YYYY h:mm:ss')}\n`);
+        stream.write(`${type}: ${name}\n`);
+        stream.write(`Message: ${message}\n`);
+        stream.write(`-------------------------------------------------\n`);
+        stream.end();
+    });
 };

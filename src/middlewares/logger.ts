@@ -9,7 +9,7 @@ const Logger = (error: Error, req: Request, res: Response, next: NextFunction): 
 
         res.status(500).send({
             status: 500,
-            message: 'internal error',
+            message: 'Internal Server Error',
             type: 'internal'
         })
     }
