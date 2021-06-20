@@ -31,7 +31,7 @@ services:
     networks:
       - custom
     volumes:
-      - ./pgdata:/var/lib/postgresql/data
+      - ./pgdata:/usr/app/data
     ports:
         - ${DB_PORT}:${DB_PORT}
     environment:

@@ -1,1 +1,4 @@
-FROM postgres:9.4
+FROM postgres:13.3-alpine
+
+# Update vulnerabilities
+RUN apk update && apk upgrade libxml2

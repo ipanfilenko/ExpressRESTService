@@ -1,12 +1,12 @@
 import { getConnection, createConnection } from "typeorm";
-import { typeormConfig } from '../../ormconfig';
+import typeORMConfig from '../../ormconfig';
 
 const connectToDB = async () => {
     let connection;
 
     try {
         if (!connection) {
-            connection = await createConnection(typeormConfig);
+            connection = await createConnection(typeORMConfig);
         } else {
             connection = getConnection();
         }
@@ -15,9 +15,9 @@ const connectToDB = async () => {
             await connection.connect();
         }
 
-        console.log('Successful connect!');
+        console.log('Successful connect to DB!');
     } catch (_err) {
-        console.log('Errror connection create!');
+        console.log('Error connection create!');
     }
 };
 
