@@ -32,10 +32,16 @@ router.route('/:userId').get(handleErrorAsync(async (req: Request, res: Response
 
 router.route('/:userId').delete(handleErrorAsync(async (req: Request, res: Response) => {
   const { userId } = req.params;
-  await UserService.deleteUserById(userId);
-  await taskService.deleteTasksForUser(userId);
-  res.status(204);
-  res.json({});
+
+  if (userId) {
+    await UserService.deleteUserById(userId);
+    await taskService.deleteTasksForUser(userId);
+    res.status(204);
+    res.json({});
+  } else {
+    res.status(404);
+    res.json({});
+  }
 }));
 
 router.route('/:userId').put(handleErrorAsync(async (req: Request, res: Response) => {
