@@ -9,7 +9,7 @@ const typeORMConfig: ConnectionOptions = {
    "username": DB_USER,
    "password": DB_PASS,
    "database": DB_NAME,
-   "synchronize": true,
+   "synchronize": false,
    "logging": false,
    "entities": [
       "src/resources/users/user.model.ts",
