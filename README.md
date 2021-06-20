@@ -27,6 +27,11 @@ For more information about OpenAPI/Swagger please visit https://swagger.io/.
 Path for logs - `./logs`
 
 Path for database - `./pgdata`
+
+## Running migration
+
+`npm run typeorm migration:run`
+
 ## Testing
 
 After application running open new terminal and enter:
