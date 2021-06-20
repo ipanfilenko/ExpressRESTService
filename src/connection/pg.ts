@@ -18,6 +18,7 @@ const connectToDB = async () => {
         console.log('Successful connect to DB!');
     } catch (_err) {
         console.log('Error connection create!');
+        setTimeout(() => connectToDB(), 5000);
     }
 };
 
