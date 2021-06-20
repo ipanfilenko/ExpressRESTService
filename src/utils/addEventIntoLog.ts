@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import dayjs from 'dayjs-ext';
 
 export const addEventIntoLog = (loggerEvent: Partial<Request & Response>): void => {
-    const stream = fs.createWriteStream('log.txt', {
+    const stream = fs.createWriteStream('./logs/log.txt', {
         flags: 'a+'
     });
 
@@ -23,7 +23,7 @@ export const addEventIntoLog = (loggerEvent: Partial<Request & Response>): void 
 };
 
 export const addErrorIntoLog = (loggerEvent: Partial<Request & Response>): void => {
-    const stream = fs.createWriteStream('errors.txt', {
+    const stream = fs.createWriteStream('./logs/errors.txt', {
         flags: 'a+'
     });
 
@@ -41,7 +41,7 @@ export const addErrorIntoLog = (loggerEvent: Partial<Request & Response>): void 
 };
 
 export const addExceptionIntoLog = (error: Error, type: string): void => {
-    const stream = fs.createWriteStream('errors.txt', {
+    const stream = fs.createWriteStream('./logs/errors.txt', {
         flags: 'a+'
     });
 

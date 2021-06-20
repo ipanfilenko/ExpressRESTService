@@ -11,22 +11,22 @@
 git clone {repository URL}
 ```
 
-## Installing NPM modules
-
-```
-npm install
-```
+## Docker
+[Install docker ](https://docs.docker.com/desktop/)
 
 ## Running application
-
 ```
-npm start
+docker compose up
 ```
 
 After starting the app on port (4000 as default) you can open
 in your browser OpenAPI documentation by typing http://localhost:4000/doc/.
 For more information about OpenAPI/Swagger please visit https://swagger.io/.
 
+### Logs and Databases
+Path for logs - `./logs`
+
+Path for database - `./pgdata`
 ## Testing
 
 After application running open new terminal and enter:
