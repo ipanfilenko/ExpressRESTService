@@ -1,13 +1,17 @@
 import { v4 as uuid } from 'uuid';
-import { Task } from '../tasks/task.model';
+import { Entity, Column, PrimaryColumn } from "typeorm";
 
-export interface Board {
-  id: string;
-  title: string;
-  columns: Task[];
-}
-
+@Entity()
 export class Board {
+  @PrimaryColumn()
+  id: string;
+
+  @Column()
+  title: string;
+
+  @Column('jsonb', { nullable: true })
+  columns: {[key: string]: string}[];
+
   constructor({
     id = uuid(),
     title = 'Title',

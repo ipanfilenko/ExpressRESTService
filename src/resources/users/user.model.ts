@@ -1,13 +1,20 @@
 import { v4 as uuid } from 'uuid';
+import { Entity, Column, PrimaryColumn } from "typeorm";
 
-export interface User {
-  id?: string;
-  name: string;
-  login: string;
-  password: string;
-}
-
+@Entity()
 export class User {
+  @PrimaryColumn()
+  id: string;
+
+  @Column()
+  name: string;
+
+  @Column()
+  login: string;
+
+  @Column()
+  password: string;
+
   constructor({
     id = uuid(),
     name = 'USER',

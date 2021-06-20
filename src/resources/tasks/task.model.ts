@@ -1,16 +1,30 @@
 import { v4 as uuid } from 'uuid';
+import { Entity, Column, PrimaryColumn } from "typeorm";
 
-export interface Task {
-  id: string;
-  title: string;
-  order: number;
-  description: string;
-  userId: string | null,
-  boardId?: string,
-  columnId: string | null,
-}
-
+@Entity()
 export class Task {
+  @PrimaryColumn()
+  id: string;
+
+  @Column()
+  title: string;
+
+  @Column()
+  order: number;
+
+  @Column()
+  description: string;
+
+  @Column('varchar', { nullable: true })
+  userId: string | null;
+
+  @Column()
+  boardId: string;
+
+
+  @Column('varchar', { nullable: true })
+  columnId: string | null;
+
   constructor({
     id = uuid(),
     title = 'title',
