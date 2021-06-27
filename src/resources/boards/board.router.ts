@@ -28,10 +28,16 @@ router.route('/').post(handleErrorAsync(async (req: Request, res: Response) => {
 
 router.route('/:boardId').get(handleErrorAsync(async (req: Request, res: Response) => {
   const { boardId } = req.params;
-  const board = await boardService.getById(boardId);
 
-  if (board) {
-    res.json(board);
+  if (boardId) {
+    const board = await boardService.getById(boardId);
+
+    if (board) {
+      res.json(board);
+    } else {
+      res.status(404);
+      res.json({});
+    }
   } else {
     res.status(404);
     res.json({});
@@ -40,10 +46,16 @@ router.route('/:boardId').get(handleErrorAsync(async (req: Request, res: Respons
 
 router.route('/:boardId').delete(handleErrorAsync(async (req: Request, res: Response) => {
   const { boardId } = req.params;
-  await boardService.deleteBoardById(boardId);
-  await taskService.deleteTasksForBoard(boardId);
-  res.status(204);
-  res.json({});
+
+  if (boardId) {
+    await boardService.deleteBoardById(boardId);
+    await taskService.deleteTasksForBoard(boardId);
+    res.status(204);
+    res.json({});
+  } else {
+    res.status(404);
+    res.json({});
+  }
 }));
 
 router.route('/:boardId').put(handleErrorAsync(async (req: Request, res: Response) => {
