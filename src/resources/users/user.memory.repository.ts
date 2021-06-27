@@ -15,7 +15,7 @@ const deleteUserById = async (userId: string) => getRepository(User).delete(user
 
 const updateUser = async (user: User) => getRepository(User).update(user.id, user);
 
-const loginUser = async (login: string): Promise<boolean> => !!await getRepository(User).findOne({login});
+const loginUser = async (login: string): Promise<boolean> => !!await getRepository(User).findOne({ login });
 
 const usersRepo = { getAll, create, getById, deleteUserById, updateUser, loginUser };
 

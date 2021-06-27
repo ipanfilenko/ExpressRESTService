@@ -1,5 +1,5 @@
 import express, { NextFunction, Request, Response } from 'express';
-import {getRepository} from "typeorm";
+import { getRepository } from "typeorm";
 import * as LoginService from './login.service';
 import { User } from '../users/user.model';
 

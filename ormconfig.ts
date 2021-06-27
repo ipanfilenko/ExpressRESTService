@@ -11,6 +11,7 @@ const typeORMConfig: ConnectionOptions = {
    "database": DB_NAME,
    "synchronize": false,
    "logging": false,
+   "migrationsRun": true,
    "entities": [
       "src/resources/users/user.model.ts",
       "src/resources/tasks/task.model.ts",

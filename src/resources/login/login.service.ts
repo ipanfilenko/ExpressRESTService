@@ -2,13 +2,12 @@ import jwt from 'jsonwebtoken';
 import bcryptjs from 'bcryptjs';
 import { User } from '../users/user.model';
 
-const EXPIRE_TOKEN = 60 * 60 * 24;
-
 export const getToken = (user: User, password: string, callback: (response: string, err: Error | null) => void) => {
+  const EXPIRE_TOKEN = 60 * 60 * 24;
   const { JWT_SECRET_KEY } = process.env;
 
   if (!user) {
-    throw new Error('Incorrect login');
+    throw new Error('Incorrect login details');
   }
 
   bcryptjs.compare(password, user.password, (_err: Error | undefined, matches: boolean) => {
@@ -22,6 +21,6 @@ export const getToken = (user: User, password: string, callback: (response: stri
       return callback(token, null);
     }
 
-    throw new Error('Incorrect password');
+    throw new Error('Incorrect login details');
   });
 };
