@@ -4,8 +4,7 @@ import UserService from '../resources/users/user.service';
 
 const authentication = (req: Request, res: Response, next: NextFunction) => {
   const { JWT_SECRET_KEY } = process.env;
-  console.log('JWT_SECRET_KEY', JWT_SECRET_KEY);
-  const sessionToken = `${req.headers.authorization}`.split(' ')[1];
+  const sessionToken = req.headers.authorization?.split(' ')[1];
 
   if (!sessionToken) {
     res.status(401).send({auth: false, message: "Access token is missing or invalid"});
@@ -13,10 +12,10 @@ const authentication = (req: Request, res: Response, next: NextFunction) => {
     jwt.verify(
         sessionToken,
         JWT_SECRET_KEY as string,
-        {complete: true},
         async (_err: VerifyErrors | null, decoded?: JwtPayload | {login: string} ) => {
           if (decoded) {
             const user = await UserService.loginUser(decoded.login);
+
             if (user) {
               next();
             } else {
