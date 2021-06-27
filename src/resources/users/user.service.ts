@@ -11,6 +11,8 @@ const deleteUserById = (userId: string) => usersRepo.deleteUserById(userId);
 
 const updateUser = (user: User) => usersRepo.updateUser(user);
 
-const UserService = { getAll, create, getById, deleteUserById, updateUser };
+const loginUser = async (login: string): Promise<boolean> => usersRepo.loginUser(login);
+
+const UserService = { getAll, create, getById, deleteUserById, updateUser, loginUser };
 
 export default UserService;
