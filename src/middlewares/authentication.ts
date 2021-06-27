@@ -3,7 +3,8 @@ import jwt, { JwtPayload, VerifyErrors } from 'jsonwebtoken';
 import UserService from '../resources/users/user.service';
 
 const authentication = (req: Request, res: Response, next: NextFunction) => {
-  const {JWT_SECRET_KEY} = process.env;
+  const { JWT_SECRET_KEY } = process.env;
+  console.log('JWT_SECRET_KEY', JWT_SECRET_KEY);
   const sessionToken = `${req.headers.authorization}`.split(' ')[1];
 
   if (!sessionToken) {

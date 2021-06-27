@@ -1,9 +1,13 @@
 import { getRepository } from "typeorm";
+import bcryptjs from 'bcryptjs';
 import { User } from './user.model';
 
 const getAll = async (): Promise<User[]> => getRepository(User).find();
 
-const create = async (user: User): Promise<User> => getRepository(User).save(user);
+const create = async (user: User): Promise<User> => getRepository(User).save({
+    ...user,
+    password: bcryptjs.hashSync(user.password, 10)
+});
 
 const getById = async (userId?: string): Promise<User | undefined>  => getRepository(User).findOne(userId);
 

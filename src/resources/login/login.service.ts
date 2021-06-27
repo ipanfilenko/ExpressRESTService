@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
+import bcryptjs from 'bcryptjs';
 import { User } from '../users/user.model';
 
 const EXPIRE_TOKEN = 60 * 60 * 24;
@@ -10,7 +10,7 @@ export const getToken = (user: User, password: string, callback: (response: stri
     return 'Incorrect login';
   }
 
-  return bcrypt.compare(password, user.password, (_err: Error|undefined, matches: boolean) => {
+  return bcryptjs.compare(password, user.password, (_err: Error|undefined, matches: boolean) => {
     let token: string;
     if (matches) {
       token = jwt.sign({id: user.id, login: user.login}, JWT_SECRET_KEY as string, {expiresIn: EXPIRE_TOKEN});
