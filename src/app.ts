@@ -4,9 +4,11 @@ import path from 'path';
 import YAML from 'yamljs';
 import 'reflect-metadata';
 import userRouter from './resources/users/user.router';
+import loginRouter from './resources/login/login.router';
 import boardRouter from './resources/boards/board.router';
 import taskRouter from './resources/tasks/task.router';
 import { Logger, ErrorLogger } from './middlewares/logger';
+import authentication from './middlewares/authentication';
 
 const app = express();
 const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
@@ -23,6 +25,8 @@ app.use('/', (req, res, next) => {
   next();
 });
 
+app.use('/login', loginRouter);
+app.use(authentication);
 app.use('/users', userRouter);
 app.use('/boards', boardRouter);
 app.use('/boards/:boardId/tasks', taskRouter);

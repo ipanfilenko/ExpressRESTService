@@ -11,6 +11,10 @@
 git clone {repository URL}
 ```
 
+## Installing NPM modules
+```
+npm install
+```
 ## Docker
 [Install docker ](https://docs.docker.com/desktop/)
 
